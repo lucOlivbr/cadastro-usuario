@@ -1,6 +1,7 @@
 package com.lucasdev.cadastro_usuario.business;
 
 import org.springframework.stereotype.Service;
+import com.lucasdev.cadastro_usuario.business.exception.UsuarioNaoEncontradoException;
 
 import com.lucasdev.cadastro_usuario.infrastructure.entitys.Usuario;
 import com.lucasdev.cadastro_usuario.infrastructure.repository.UsuarioRepository;
@@ -20,7 +21,7 @@ public class UsuarioService {
 
     public Usuario buscarUsuarioPorEmail(String email) {
         return repository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Email não encontrado"));
+                .orElseThrow(UsuarioNaoEncontradoException::new);
     }
 
     public void deletarUsuarioPorEmail(String email) {
@@ -29,7 +30,7 @@ public class UsuarioService {
 
     public void atualizarUsuarioPorId(Integer id, Usuario usuario) {
         Usuario existente = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(UsuarioNaoEncontradoException::new);
 
         if (usuario.getEmail() != null) {
             existente.setEmail(usuario.getEmail());
@@ -40,3 +41,4 @@ public class UsuarioService {
         repository.saveAndFlush(existente);
     }
 }
+
