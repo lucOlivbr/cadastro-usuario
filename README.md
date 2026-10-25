@@ -1,5 +1,7 @@
 # Cadastro de Usuário
 
+[![Java tests](https://github.com/lucOlivbr/cadastro-usuario/actions/workflows/java-tests.yml/badge.svg)](https://github.com/lucOlivbr/cadastro-usuario/actions/workflows/java-tests.yml)
+
 Projeto de estudo em Java e Spring Boot: uma API REST para cadastrar, consultar, atualizar e remover usuários por nome e e-mail.
 
 ## O que está implementado
@@ -117,6 +119,10 @@ Além de `contextLoads`, quatorze testes de integração exercitam o controller,
 - Exclusão idempotente de usuário já ausente.
 
 Os testes usam banco H2 separado em memória e rollback por transação. Eles verificam o comportamento atual; não implicam validação completa nem cobertura percentual medida.
+
+### Verificação no GitHub
+
+O workflow `Java tests` executa os testes unitários e de integração com Java 17 e o Maven Wrapper em cada push para `main`, nas pull requests e quando iniciado manualmente. Os resultados ficam na aba Actions e no indicador acima. A configuração usa banco H2 em memória, ações oficiais fixadas por commit e permissão somente de leitura do repositório.
 
 ## Limites e próximos passos
 
