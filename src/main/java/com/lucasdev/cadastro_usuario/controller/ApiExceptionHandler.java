@@ -1,6 +1,8 @@
 package com.lucasdev.cadastro_usuario.controller;
 
 import com.lucasdev.cadastro_usuario.business.exception.UsuarioNaoEncontradoException;
+import com.lucasdev.cadastro_usuario.business.exception.EmailJaCadastradoException;
+import com.lucasdev.cadastro_usuario.business.exception.UsuarioInvalidoException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -22,10 +24,15 @@ public class ApiExceptionHandler {
                 "Usuário não encontrado.", request);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ExceptionHandler({DataIntegrityViolationException.class, EmailJaCadastradoException.class})
     ResponseEntity<ApiError> conflito(HttpServletRequest request) {
         return erro(HttpStatus.CONFLICT, "CONFLITO_DADOS",
                 "Os dados informados conflitam com um registro existente.", request);
+    }
+
+    @ExceptionHandler(UsuarioInvalidoException.class)
+    ResponseEntity<ApiError> usuarioInvalido(UsuarioInvalidoException ex, HttpServletRequest request) {
+        return erro(HttpStatus.BAD_REQUEST, "DADOS_INVALIDOS", ex.getMessage(), request);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
