@@ -19,7 +19,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Void> salvarUsuario(@RequestBody Usuario usuario) {
         usuarioService.salvarUsuario(usuario);
-        return ResponseEntity.status(201).build();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
@@ -30,7 +30,7 @@ public class UsuarioController {
     @DeleteMapping
     public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam String email) {
         usuarioService.deletarUsuarioPorEmail(email);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
